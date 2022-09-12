@@ -1,0 +1,236 @@
+:root {
+    --purple: #cbc0d3;
+    --dark: #8e9aaf;
+    --main: #a44a3f;
+    --pink: #feeafa;
+    --blue: #dee2ff;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    background-color: var(--pink);
+}
+
+.container {
+    height: auto;
+    width: auto;
+}
+
+.start-btn {
+    height: 70px;
+    width: 200px;
+    text-align: center;
+    padding: 20px 0;
+    background: var(--blue);
+    color: var(--main);
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 20%;
+    border: 3px solid var(--dark);
+    cursor: pointer;
+    margin:auto;
+}
+
+.start-btn:hover {
+    background-color: var(--main);
+    color: var(--blue);
+}
+
+.rules, .quiz, .result{
+    height: auto;
+    width: 600px;
+    padding: 20px;
+    background-color: var(--blue);
+    color: var(--dark);
+    border: solid 3px var(--dark);
+    border-radius: 30px;
+    line-height: 20px;
+}
+.rules {
+    display: none;
+}
+.rules h3{
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--main);
+    padding: 10px;
+}
+
+.rules #accept-rules {
+    height: 30px;
+    width: 120px;
+    text-align: center;
+    padding: 20px 0;
+    background: var(--pink);
+    color: var(--main);
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 20%;
+    border: 3px solid var(--dark);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    float:right; 
+    cursor: pointer;
+    line-height: 15px ;
+}
+#accept-rules:hover {
+    background-color: var(--main);
+    color: var(--blue);
+}
+
+/* Quiz Question */
+
+.quiz {
+    display: none;
+    position: relative;
+    height: 500px;
+}
+
+.quiz #quiz-header {
+    height: 60px;
+    width: 100%;
+    background-color: var(--purple);
+    position:absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 30px 30px 0 0 ;
+    top: 0;
+    left: 0;
+    color: var(--main);
+}
+.quiz #quiz-header h2{
+    font-size: 22px;
+    margin: 0 20px;
+}
+.quiz #quiz-header #timer {
+    border: 2px solid var(--dark);
+    border-radius: 10%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 15px;
+    padding: 5px;
+    background-color: var(--blue);
+}
+.quiz #questions {
+    font-size: 18px;
+    position:absolute;
+    display: flex;
+    flex-direction: row;
+}
+
+/* answers */
+.questions {
+    top: 80px;
+    background-color: var(--purple);
+    color: var(--main);
+    border: 2px solid var(--dark);
+    border-radius: 10%;
+    padding: 5px 20px;
+}
+.answers {
+    height: 400px;
+    width: 100%;
+    position: absolute;
+    top: 150px
+}
+
+.answers .choices {
+    height: 50px;
+    width: 500px;
+    background-color: var(--pink);
+    line-height: 40px;
+    margin: 5px 0;
+    border-radius: 10%;
+    padding: 0 20px;
+    color: var(--main);
+    overflow: hidden;
+    border: 2px solid var(--dark);
+    cursor: pointer;
+}
+.choices:hover {
+    background-color: var(--main);
+    color: var(--blue);
+}
+.choices .active {
+    background-color: var(--main);
+    color: var(--blue);
+}
+.choices .disabled {
+    pointer-events: none;
+}
+/* quiz-footer */
+
+.quiz-footer {
+    height: 60px;
+    width: 100%;
+    background-color: var(--purple);
+    color: var(--main);
+    border: 2px solid var(--dark);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 0 0 30px 30px;
+
+}
+.next-btn, #try-again{
+    height: 40px;
+    width: 100px;
+    background-color: var(--pink);
+    line-height: 40px;
+    margin: 0 20px;
+    border-radius: 10%;
+    padding: 0 20px;
+    color: var(--main);
+    overflow: hidden;
+    border: 2px solid var(--dark);
+    cursor: pointer;
+    display: grid;
+    position:absolute;
+    right: 10px;
+}
+.next-btn:hover {
+    background-color: var(--main);
+    color: var(--blue);
+}
+.quiz-footer h3 {
+    margin: 0px 30px;
+    /* display: none; */
+}
+
+/* Result */
+.result {
+    color: var(--main);
+    height: 200px;   
+    display: none;
+}
+.result h3 {
+    height: 40px;
+    width: 85%;
+    font-size: 18px;
+    text-align: center;
+}
+
+#try-again {
+    width: 150px;
+    position: absolute;
+    right: 320px;
+}
+#try-again:hover {
+    background-color: var(--main);
+    color: var(--blue);
+}
