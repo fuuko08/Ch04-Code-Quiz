@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Quiz</title>
+    <title>Selina's Code Quiz</title>
     <link rel="stylesheet" href="./assets/css/reset.css"/>
     <link rel="stylesheet" href="./assets/css/style.css"/>
 </head>
@@ -13,23 +13,14 @@
 <div id="container" class="container">
         <div id="start-btn" class="start-btn">Start Quiz</div>
         <br>
-<!-- Quiz Rules -->
-        <div id="rules" class="rules">
-            <h3>Read the rules carefully before you start</h3>
-            <h5>1. Please complete the quiz within 20s</h5>
-            <h5>2. Choose one answer only</h5>
-            <h5>3. You get one point for each correct answer</h5>
-            <h5>4. You can try again after finishing all 5 questions</h5>
-            <button id="accept-rules">Continue</button>
-        </div>        
-<br> <br>
+
 <!-- Quiz Questions-->
     <div id="quiz" class="quiz">
         <div id="quiz-header">
             <h2>Selina's Code Quiz</h2>
             <div id="timer">
                 <h4>Time Left</h4>
-                <h4 id="time">20</h4>
+                <h4 id="time">60</h4>
             </div>
         </div>
     <br>
@@ -52,9 +43,13 @@
 <br>
 <!-- Result -->
     <div id="result" class="result">
-            <h3>Congratulation 🏆! You have completed the quiz</h3>
-            <h3 id="scores"> You got 3 out of 5 correct answers.</h3>
-            <button id="try-again"> Try Again? </button>
+        <div id="high-score" class="high-score">
+            <h3>Congratulation 🏆! You have completed the quiz. Please enter you initials.</h3>
+            <h3 id="scores"></h3>
+            <input type="text" name="initials-area" maxlength="4" id="initials">
+            <button id="submit"> Submit </button>
+            <a href="index.html" class="back-button"><i class="fas fa-angle-left" aria-hidden="true"></i>Back to quiz</a>
+        </div>
     </div>
 </div> 
     <script src="./assets/js/script.js"></script>

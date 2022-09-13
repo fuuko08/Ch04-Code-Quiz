@@ -163,13 +163,21 @@ body {
     background-color: var(--main);
     color: var(--blue);
 }
-.choices .active {
+.choices.active {
     background-color: var(--main);
     color: var(--blue);
 }
-.choices .disabled {
+.choices:active {
+    background-color: var(--main);
+    color: var(--blue);
+}
+.choices:disabled {
     pointer-events: none;
 }
+.choices.disabled {
+    pointer-events: none;
+}
+
 /* quiz-footer */
 
 .quiz-footer {
@@ -225,12 +233,12 @@ body {
     text-align: center;
 }
 
-#try-again {
+#submit {
     width: 150px;
     position: absolute;
     right: 320px;
 }
-#try-again:hover {
+#submit:hover {
     background-color: var(--main);
     color: var(--blue);
 }

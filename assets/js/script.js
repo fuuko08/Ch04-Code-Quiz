@@ -1,9 +1,6 @@
 // var dom //
 var startBtn = document.getElementById("start-btn");
 
-var rules = document.getElementById("rules");
-var continueBtn = document.getElementById("accept-rules");
-
 var quiz = document.getElementById("quiz");
 var time = document.getElementById("time");
 
@@ -19,14 +16,16 @@ var nextBtn = document.getElementById("next-btn");
 
 var result = document.getElementById("result");
 var score = document.getElementById("scores");
-var tryAgainBtn = document.getElementById("try-again");
+var submitBtn = document.getElementById("submit");
+var initials = document.getElementById("initials");
+var backBtn = document.getElementById("backbtn"); 
 
 let index = 0;
-let timer = 0;
+let timer = 60;
 let interval = 0;
 
 let correct = 0;
-let totalCorrect = undefined;
+let userAns = undefined;
 
 var questionBank = [
     {
@@ -79,18 +78,11 @@ var questionBank = [
 startBtn.addEventListener("click", function() {
     startBtn.style.display = "none";
     rules.style.display = "block";
-} );
-
-continueBtn.addEventListener("click", function() {
-    rules.style.display = "none";
-    quiz.style.display = "block";
-    interval = setInterval(countdown, 1000);
+    countdown();
     showQuestion();
-
     choices.forEach(removeActive => {
         removeActive.classList.remove("active");   
     })
-    //score = `You got ${correct = 0} out of 5 Correct Answers`;//
 } );
 
 nextBtn.addEventListener("click", function() {
@@ -100,12 +92,9 @@ nextBtn.addEventListener("click", function() {
             removeActive.classList.remove("active");
     })
     showQuestion();
-    score.style.display = "block";
-    // score = `You got ${correct = 0} out of 5 Correct Answers`;//
-    clearInterval(interval);
-    interval = setInterval(countdown, 1000);
 } else {
     index = 0;
+    endGame();
     clearInterval(interval);
     quiz.style.display = 'none';
     score = `You got ${correct} out of 5 correct answers.`;
@@ -115,68 +104,124 @@ nextBtn.addEventListener("click", function() {
 }
 })
 
-tryAgainBtn.addEventListener("click", function() {
-    rules.style.display = "block";
-    result.style.display = "none";
-})
+
 
 // Timer 
-let countdown = function() {
-    if(timer === 20) {
-        clearInterval(interval);
-        nextBtn.click();
-    } else {
-        timer++;
-        time.innerText = timer;
+function displayTime () {
+    time.innerText = timer;
+}
+function countdown() {
+    interval = setInterval(function() {
+        timer--;
+        displayTime();
+        checkTime();
+    }, 1000);
+    console.log(countdown);
+}
+function checkTime() {
+    if (timer <= 0) {
+        timer = 0;
+        endGame();
     }
 }
-
+function deductTime(seconds) {
+    totalTime -= seconds;
+    checkTime();
+    displayTime();
+}
+    
+// Show questions and answers
 function showQuestion() {
     questionNo.innerText = questionBank[index].question;
     choice1.innerText = questionBank[index].choice1;
     choice2.innerText = questionBank[index].choice2;
     choice3.innerText = questionBank[index].choice3;
     choice4.innerText = questionBank[index].choice4;
-    timer = 0;
+    timer = 60;
+    console.log (showQuestion);
 }
 
-for (choiceList(choiceNo) of choices) {
-    choiceList.addEventListener("click", function() {
-        choiceList.classList.add("active");
+choices.forEach((options, choiceNo) => {
+    options.addEventListener("click", () => {
+        options.classList.add("active");
         if (choiceNo === questionBank[index].answer) {
             correct++;
         } else {
             correct += 0;
-        } clearInterval(interval);
-        for ( i = 0; i <= 3; i++) {
-            choicesBtn[i].classList.add("disabled");
+            deductTime(10);
         }
-    })
-};
-//choices.forEach( (choiceList, choiceNo) => {
-   // choiceList.addEventListener("click", function() {
-       // choiceList.classList.add("active");
+        for (i = 0; i <= 3; i++) {
+            choices[i].classList.add("disabled");
+        }
+        console.log(choices);
+    }) 
+});
 
-      //  if (choiceNo === questionBank[index].answer) {
-       //     correct++;
-       // } else {
-       //     correct += 0;
-       // }  
-       // clearInterval(interval);
-       // for (i=0; i <= 3; i++) {
-      //      choices[i].classList.add("disabled");
-      //  }
-  //  })
-//});
+// Enter initials
+function inputInitial(event) {
+    event.preventDefault();
+    var initials = initials.value.toUpperCase();
+    if (isInputValid(initials)) {
+        const score = totalTime;
+        const highScore = getNewHighScore(initials, score);
+        saveHighScore(highScore);
+    }
+}
 
+function getNewHighScore(initials, score) {
+    const entry = {
+        initials: initials,
+        score: score,
+    }
+    return entry; 
+}
 
+function isInputValid(initials) {
+    if (initials === "") {
+        alert("Please enter your initial");
+        return false;
+    } else {
+        return true;
+    }
+}
 
+// Save high scores
+function saveHighScore(highScore) {
+    const currentScores = getScore();
+    placeEntryInHighScoreList(highScore, currentScores);
+    localStorage.setItem('scoreList', JSON.stringify(currentScores));
+}
+function getScore(){
+    const currentScores = localStorage.getItem('scoreList');
+    if (currentScores) {
+        return JSON.parse(currentScores);
+    } else {
+        return [];
+    }
+}
+function placeEntryInHighScoreList(newEntry, scoreList) {
+    const newScore = getNewScore(newEntry, scoreList);
+    scoreList.splice(newScore, 0, newEntry);
+}
+function getNewScore (newEntry, scoreList) {
+    if (score.length > 0) {
+        for (let i = 0; i < scoreList.length; i++) {
+            if (scoreList[i].score <= newEntry.score) {
+                return i;
+            }
+        }
+    }
+    return scoreList.length;
+}
 
-
-// function selectQuestion {
-
-
-
-//function selectNextQuestion {
+function endGame() {
+    clearInterval(interval);
+    result.style.display = "block";
+    displayScore();
+    
+}
+function displayScore () {
+    score.textContent = totalTime;
+}
 
 
