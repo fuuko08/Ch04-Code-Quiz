@@ -102,7 +102,7 @@ function countdown() {
         displayTime();
         checkTime();
     }, 1000);
-    console.log(countdown);
+    // console.log(countdown);
 }
 function checkTime() {
     if (timer <= 0) {
@@ -121,7 +121,10 @@ let currentQuestion = 0;
 let count = 0;
 function showQuestion() {
     document.getElementById("questionNo").innerHTML = questionBank[currentQuestion].question;
-    document.getElementById("choicesBtn").innerHTML = "";
+    
+    // bug 1: class not id
+    // document.getElementById("choicesBtn").innerHTML = "";
+    document.getElementsByClassName("choicesBtn").innerHTML = "";
     questionBank[currentQuestion].choices.map((choice, i) => {
         var btn = document.createElement("button");
         var textNode = document.createTextNode(choice);

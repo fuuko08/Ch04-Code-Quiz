@@ -60,22 +60,34 @@ function startQuiz() {
     option3.innerHTML = questionBank[index].choices[2];
     option4.innerHTML = questionBank[index].choices[3];
     var currentQ = questionBank[index];
-    console.log(currentQ);
-    for (var i = 0; i < currentQ.choices[i]; i++)
+    // console.log(currentQ);
+
+    // bug 1: syntax - for loop not completed
+    //for (var i = 0; i < currentQ.choices[i]; i++)
 }
 
 nextBtn.addEventListener("click", function() {
     if (index !== questionBank.length - 1) {
         index++;
-        choices.forEach(function removeActive() {
-            removeActive.classList.remove("active");
+
+        // bug 2: removeActive is a function, not object or element => no remove property
+        choices.forEach(function removeActive(selectedChoice) {
+            console.log("selected choice: " + selectedChoice.textContent);
+
+            // bug 3: there is no active class???
+            // selectedChoice.classList.remove("active");
+            // continue working from line 88 in sample
         })
+
         startQuiz();
         result.style.display = "block"
     } else {
         index = 0;
-    } for (i = 0; i <= 3; i++) {
-        choices.classList.remove("disabled");
+    } 
+    // bug 4: what does it for?
+    for (i = 0; i <= 3; i++) {
+        // bug 5: same as bug 3: there is no disabled class
+        //choices.classList.remove("disabled");
     }
 })
 // function right or wrong
@@ -121,7 +133,7 @@ function countdown() {
         displayTime();
         checkTime();
     }, 1000);
-    console.log(countdown);
+    // console.log(countdown);
 }
 function checkTime() {
     if (timer <= 0) {
@@ -140,7 +152,9 @@ function endGame() {
     clearInterval(interval);
     result.style.display = "block";
     quiz.style.display = "none";
-    score.textContent = "You got" + `${correct}` + "answers";
+
+    // bug 6: typo 'scores' not 'score'
+    scores.textContent = "You got" + `${correct}` + "answers";
 }
 
 // function save score
