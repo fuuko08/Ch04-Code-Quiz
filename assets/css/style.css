@@ -160,24 +160,6 @@ body {
     overflow: hidden;
     border: 2px solid var(--dark);
 }
-.choicesBtn:hover {
-    background-color: var(--main);
-    color: var(--blue);
-}
-.choicesBtn.active {
-    background-color: var(--main);
-    color: var(--blue);
-}
-.choicesBtn:active {
-    background-color: var(--main);
-    color: var(--blue);
-}
-.choicesBtn:disabled {
-    pointer-events: none;
-}
-.choicesBtn.disabled {
-    pointer-events: none;
-}
 
 
 /* quiz-footer */
@@ -231,10 +213,10 @@ body {
     text-align: center;
 }
 
-#submit, #backbtn, #next-btn{
+#submit, #backbtn {
     width: 150px;
     position: absolute;
-    right: 100px;
+    right: 300px;
     color: var(--main);
     border: 2px solid var(--dark);
     border-radius: 10%;
@@ -245,10 +227,6 @@ body {
     color: var(--blue);
 }
 #backbtn:hover {
-    background-color: var(--main);
-    color: var(--blue);
-}
-#next-btn:hover {
     background-color: var(--main);
     color: var(--blue);
 }

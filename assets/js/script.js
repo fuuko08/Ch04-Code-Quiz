@@ -84,9 +84,10 @@ function showQuestion(question) {
         let answerBtn = document.createElement("button");
         answerBtn.innerText = question.answer[i].text;
         answerBtn.classList.add('btn');
-        console.log (question.answer[i].correct);
-        answerBtn.addEventListener('click', function(question) {
-            let useranswer = question.answer[i].correct;
+        answerBtn.addEventListener('click', function() {
+            var currentQuestion = questionBank.find(el => el.question == questionNo.innerText);
+            var currrentAnswer = currentQuestion.answer.find(el => el.text == this.innerText);
+            let useranswer = currrentAnswer.correct;
             if (useranswer) {
                 rightAnswer();
                 score++;
@@ -112,12 +113,12 @@ var footer = document.getElementById("quiz-footer");
 
 function rightAnswer() {
     footer.textContent = 'Correct!';
-    footer.setAttribute('style', 'color: #dee2ff')
+    footer.setAttribute('style', 'color: #a44a3f, font-size: 22px, font-weight: bold');
 }
 
 function wrongAnswer() {
     footer.textContent = 'Wrong!';
-    footer.setAttribute('style', 'color: #a44a3f')
+    footer.setAttribute('style', 'color: #a44a3f, font-size: 22px, font-weight: bold');
 }
 
 
@@ -159,37 +160,26 @@ function endGame() {
     clearInterval(interval);
     result.style.display = "block";
     quiz.style.display = "none";
-    submitBtn.addEventListener("click", saveHighScore)   
+    submitBtn.addEventListener("click", saveScore)   
 }
 
 // function save score
-function saveScore() {
-    
-}
-
-// function input initials
 var initials = document.getElementById("initials");
 
-function inputInitial() {
-    if (isInputValid(initials)) {
-    let scores = correct;
-    var highScore = getNewHighScore(initials, scores);
-    saveHighScore(highScore);
+function saveScore(event) {
+    event.preventDefault();
+    let init = initials.value;
+    if (init.length <= 1) {
+        alert("Enter your initials!");
+        return;
     }
-}
-function isInputValid(initials) {
-    if (initials === "") {
-        alert("Please enter your initial");
-        return false;
-    } else {
-        return true;
+    var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    var newScore = {
+        name: init,
+        score: time,
     }
+    highScores.push(newScore);
+    highScores.sort( (a,b) => b.newScore - a.newScore);
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+    window.location.href = './ranking.html';
 }
-function getNewHighScore(initials, score) {
-    let entry = {
-        initials: initials,
-        scores: scores,
-    }
-    return entry;
-}
-
