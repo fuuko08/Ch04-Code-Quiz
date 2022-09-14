@@ -1,112 +1,117 @@
-// var dom //
-var startBtn = document.getElementById("start-btn");
-
-var quiz = document.getElementById("quiz");
-var time = document.getElementById("time");
-
-var questionNo = document.getElementById("questionNo");
-
-var choice1 = document.getElementById("choice1");
-var choice2 = document.getElementById("choice2");
-var choice3 = document.getElementById("choice3");
-var choice4 = document.getElementById("choice4");
-var choices = document.querySelectorAll(".choices");
-
-var nextBtn = document.getElementById("next-btn");
-
-var result = document.getElementById("result");
-var score = document.getElementById("scores");
-var submitBtn = document.getElementById("submit");
-var initials = document.getElementById("initials");
-var backBtn = document.getElementById("backbtn"); 
-
-let index = 0;
-let timer = 60;
-let interval = 0;
-
-let correct = 0;
-let userAns = undefined;
-
 var questionBank = [
     {
         question: "What does HTML stand for?",
-        choice1: "Hippo Technology Magic Link",
-        choice2: "Hyper Motor Life",
-        choice3: "Hyperlink Markup Language",
-        choice4: "Hello Tyler Miller Laura",
-        answer: 3
+        choices: ["Hippo Technology Magic Link", "Hyper Motor Life", "Hyperlink Markup Language", "Hello Tyler Miller Laura"],   
+        answer: "Hyperlink Markup Language",
     },
 
     {
         question: "What is Github?",
-        choice1: "A cult",
-        choice2: "A fan club",
-        choice3: "A hosting platform",
-        choice4: "A social media",
-        answer: 3
+        choices: ["A cult", "A fan club", "A hosting platform", "A social media"],
+        answer: "A hosting platform",
     },
 
     {
         question: "What is the git command to create and clone a remote repository?",
-        choice1: "git pull",
-        choice2: "git push",
-        choice3: "cd",
-        choice4: "git clone",
-        answer: 4
+        choices: ["git pull", "git push", "cd", "git clone"],
+        answer: "git clone",
     },
 
     {
         question: "What do you use to modify your site screen?",
-        choice1: "Media Queries",
-        choice2: "Font-size",
-        choice3: "Background",
-        choice4: "Padding",
-        answer: 1
+        choices: ["Media Queries", "Font-size", "Background", "Padding"],
+        answer: "Media Queries",
     },
 
     {
         question: "Which answer belows is a programming language?",
-        choice1: "SP500",
-        choice2: "Javascript",
-        choice3: "FBI",
-        choice4: "PS5",
-        answer: 2
+        choices: ["SP500", "Javascript", "FBI", "PS5"],
+        answer: "Javascript",
     },
 ]
 
-// Click the button
+// click start btn
+var startBtn = document.getElementById("start-btn")
+var quizEL = document.getElementById("quiz")
+
 startBtn.addEventListener("click", function() {
-    startBtn.style.display = "none";
-    rules.style.display = "block";
+    startBtn.style.display = "none"
+    quiz.style.display = "block"
     countdown();
-    showQuestion();
-    choices.forEach(removeActive => {
-        removeActive.classList.remove("active");   
-    })
-} );
+    startQuiz();
+});
+
+//function Start quiz
+
+var index = 0;
+document.getElementById("questionNo").innerHTML = questionBank[index].question;
+document.getElementById("option1").innerHTML = questionBank[index].choices[0];
+document.getElementById("option2").innerHTML = questionBank[index].choices[1];
+document.getElementById("option3").innerHTML = questionBank[index].choices[2];
+document.getElementById("option4").innerHTML = questionBank[index].choices[3];
+var userChoice = undefined;
+var choices = document.querySelectorAll(".choicesBtn");
+var nextBtn = document.getElementById("next-btn");
+
+function startQuiz() {
+    questionNo.innerText = questionBank[index].question;
+    option1.innerText = questionBank[index].choices[0];
+    option2.innerHTML = questionBank[index].choices[1];
+    option3.innerHTML = questionBank[index].choices[2];
+    option4.innerHTML = questionBank[index].choices[3];
+    var currentQ = questionBank[index];
+    console.log(currentQ);
+    for (var i = 0; i < currentQ.choices[i]; i++)
+}
 
 nextBtn.addEventListener("click", function() {
-    if (index !== questionBank.length -1 ) {
+    if (index !== questionBank.length - 1) {
         index++;
-        choices.forEach(removeActive => {
+        choices.forEach(function removeActive() {
             removeActive.classList.remove("active");
-    })
-    showQuestion();
-} else {
-    index = 0;
-    endGame();
-    clearInterval(interval);
-    quiz.style.display = 'none';
-    score = `You got ${correct} out of 5 correct answers.`;
-    result.style.display = "block";
-} for (i = 0; i <= 3; i++) {
-    choices[i].classList.remove("disabled");
-}
+        })
+        startQuiz();
+        result.style.display = "block"
+    } else {
+        index = 0;
+    } for (i = 0; i <= 3; i++) {
+        choices.classList.remove("disabled");
+    }
 })
+// function right or wrong
 
+var scores = document.getElementById("scores");
+var correct = 0;
+var count = 0;
+
+function rightAnswer() {
+    correct++;
+    count++;
+    if (count == questionBank.length) {
+        endGame ();
+    } else {
+        startQuiz();
+    } console.log (startQuiz);
+    return correct;
+}
+
+function wrongAnswer() {
+    correct += 0;
+    count++;
+    deductTime(10);
+    if (count == questionBank.length) {
+        endGame();
+    } else {
+        startQuiz();
+    } return correct
+}
 
 
 // Timer 
+var time = document.getElementById("time");
+let timer = 60;
+let interval;
+
 function displayTime () {
     time.innerText = timer;
 }
@@ -125,57 +130,34 @@ function checkTime() {
     }
 }
 function deductTime(seconds) {
-    totalTime -= seconds;
+    timer -= seconds;
     checkTime();
     displayTime();
 }
+
+// function end quiz
+function endGame() {
+    clearInterval(interval);
+    result.style.display = "block";
+    quiz.style.display = "none";
+    score.textContent = "You got" + `${correct}` + "answers";
+}
+
+// function save score
+function saveScore() {
     
-// Show questions and answers
-function showQuestion() {
-    questionNo.innerText = questionBank[index].question;
-    choice1.innerText = questionBank[index].choice1;
-    choice2.innerText = questionBank[index].choice2;
-    choice3.innerText = questionBank[index].choice3;
-    choice4.innerText = questionBank[index].choice4;
-    timer = 60;
-    console.log (showQuestion);
 }
 
-choices.forEach((options, choiceNo) => {
-    options.addEventListener("click", () => {
-        options.classList.add("active");
-        if (choiceNo === questionBank[index].answer) {
-            correct++;
-        } else {
-            correct += 0;
-            deductTime(10);
-        }
-        for (i = 0; i <= 3; i++) {
-            choices[i].classList.add("disabled");
-        }
-        console.log(choices);
-    }) 
-});
+// function input initials
+var initials = document.getElementById("initials");
 
-// Enter initials
-function inputInitial(event) {
-    event.preventDefault();
-    var initials = initials.value.toUpperCase();
+function inputInitial() {
     if (isInputValid(initials)) {
-        const score = totalTime;
-        const highScore = getNewHighScore(initials, score);
-        saveHighScore(highScore);
+    let scores = correct;
+    var highScore = getNewHighScore(initials, scores);
+    saveHighScore(highScore);
     }
 }
-
-function getNewHighScore(initials, score) {
-    const entry = {
-        initials: initials,
-        score: score,
-    }
-    return entry; 
-}
-
 function isInputValid(initials) {
     if (initials === "") {
         alert("Please enter your initial");
@@ -184,44 +166,11 @@ function isInputValid(initials) {
         return true;
     }
 }
-
-// Save high scores
-function saveHighScore(highScore) {
-    const currentScores = getScore();
-    placeEntryInHighScoreList(highScore, currentScores);
-    localStorage.setItem('scoreList', JSON.stringify(currentScores));
-}
-function getScore(){
-    const currentScores = localStorage.getItem('scoreList');
-    if (currentScores) {
-        return JSON.parse(currentScores);
-    } else {
-        return [];
+function getNewHighScore(initials, score) {
+    let entry = {
+        initials: initials,
+        scores: scores,
     }
+    return entry;
 }
-function placeEntryInHighScoreList(newEntry, scoreList) {
-    const newScore = getNewScore(newEntry, scoreList);
-    scoreList.splice(newScore, 0, newEntry);
-}
-function getNewScore (newEntry, scoreList) {
-    if (score.length > 0) {
-        for (let i = 0; i < scoreList.length; i++) {
-            if (scoreList[i].score <= newEntry.score) {
-                return i;
-            }
-        }
-    }
-    return scoreList.length;
-}
-
-function endGame() {
-    clearInterval(interval);
-    result.style.display = "block";
-    displayScore();
-    
-}
-function displayScore () {
-    score.textContent = totalTime;
-}
-
 

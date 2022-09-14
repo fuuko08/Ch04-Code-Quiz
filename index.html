@@ -14,7 +14,7 @@
         <div id="start-btn" class="start-btn">Start Quiz</div>
         <br>
 
-<!-- Quiz Questions-->
+<!-- Quiz Section-->
     <div id="quiz" class="quiz">
         <div id="quiz-header">
             <h2>Selina's Code Quiz</h2>
@@ -24,18 +24,18 @@
             </div>
         </div>
     <br>
-
+        <!-- Questions -->
         <div id="questions" class="questions">
-            <h3 id="questionNo">Question 1</h3>
+            <h3 id="questionNo" class="questionNo"></h3>
         </div>
-
+        <!-- Answers -->
         <div id="answers" class="answers">
-            <button class="choices" id="choice1">Answer A</button>
-            <button class="choices" id="choice2">Answer B</button>
-            <button class="choices" id="choice3">Answer C</button>
-            <button class="choices" id="choice4">Answer D</button>    
+            <button class="choicesBtn" id="option1"></button>
+            <button class="choicesBtn" id="option2"></button>
+            <button class="choicesBtn" id="option3"></button>
+            <button class="choicesBtn" id="option4"></button>
         </div>
-<br>
+        
         <div id="quiz-footer" class="quiz-footer">
         <button id="next-btn" class="next-btn">Next</button>
         </div>   
@@ -43,14 +43,19 @@
 <br>
 <!-- Result -->
     <div id="result" class="result">
-        <div id="high-score" class="high-score">
-            <h3>Congratulation 🏆! You have completed the quiz. Please enter you initials.</h3>
-            <h3 id="scores"></h3>
-            <input type="text" name="initials-area" maxlength="4" id="initials">
-            <button id="submit"> Submit </button>
-            <a href="index.html" class="back-button"><i class="fas fa-angle-left" aria-hidden="true"></i>Back to quiz</a>
+        <h3>Congratulation 🏆! You have completed the quiz. Please enter you initials.</h3>
+        <h3 id="scores"></h3>
+        <div id="input" class="input">
+        <input type="text" name="initials-area" maxlength="4" id="initials" placeholder="Please Enter Initials"/>
+        <button id="submit"> Submit </button>
         </div>
     </div>
+    
+    <div id="high-score" class="high-score">
+        <button class="backbtn" id="backbtn">Try Again?</button>   
+    </div>
+
+    
 </div> 
     <script src="./assets/js/script.js"></script>
 </body>

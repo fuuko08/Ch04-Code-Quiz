@@ -138,6 +138,8 @@ body {
     border: 2px solid var(--dark);
     border-radius: 10%;
     padding: 5px 20px;
+    width: 500px;
+    height: 40px;
 }
 .answers {
     height: 400px;
@@ -146,7 +148,7 @@ body {
     top: 150px
 }
 
-.answers .choices {
+.answers .choicesBtn {
     height: 50px;
     width: 500px;
     background-color: var(--pink);
@@ -157,26 +159,26 @@ body {
     color: var(--main);
     overflow: hidden;
     border: 2px solid var(--dark);
-    cursor: pointer;
 }
-.choices:hover {
+.choicesBtn:hover {
     background-color: var(--main);
     color: var(--blue);
 }
-.choices.active {
+.choicesBtn.active {
     background-color: var(--main);
     color: var(--blue);
 }
-.choices:active {
+.choicesBtn:active {
     background-color: var(--main);
     color: var(--blue);
 }
-.choices:disabled {
+.choicesBtn:disabled {
     pointer-events: none;
 }
-.choices.disabled {
+.choicesBtn.disabled {
     pointer-events: none;
 }
+
 
 /* quiz-footer */
 
@@ -195,7 +197,7 @@ body {
     border-radius: 0 0 30px 30px;
 
 }
-.next-btn, #try-again{
+#try-again{
     height: 40px;
     width: 100px;
     background-color: var(--pink);
@@ -211,17 +213,13 @@ body {
     position:absolute;
     right: 10px;
 }
-.next-btn:hover {
-    background-color: var(--main);
-    color: var(--blue);
-}
 .quiz-footer h3 {
     margin: 0px 30px;
     /* display: none; */
 }
 
 /* Result */
-.result {
+.result, .high-score {
     color: var(--main);
     height: 200px;   
     display: none;
@@ -233,12 +231,24 @@ body {
     text-align: center;
 }
 
-#submit {
+#submit, #backbtn, #next-btn{
     width: 150px;
     position: absolute;
-    right: 320px;
+    right: 100px;
+    color: var(--main);
+    border: 2px solid var(--dark);
+    border-radius: 10%;
+    background-color: var(--pink);
 }
 #submit:hover {
+    background-color: var(--main);
+    color: var(--blue);
+}
+#backbtn:hover {
+    background-color: var(--main);
+    color: var(--blue);
+}
+#next-btn:hover {
     background-color: var(--main);
     color: var(--blue);
 }
