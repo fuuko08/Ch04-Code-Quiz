@@ -57,8 +57,9 @@ let shuffleQuestions, currentQ;
 var score = 0;
 
 startBtn.addEventListener("click", function() {
-    startBtn.style.display = "none"
-    quiz.style.display = "block"
+    startBtn.style.display = "none";
+    quiz.style.display = "block";
+    highscoreDisplay.style.display = "block"
     shuffleQuestions = questionBank.sort(() => Math.random() - .5);
     currentQ = 0;
     countdown();
@@ -154,49 +155,62 @@ function deductTime(seconds) {
 var submitBtn = document.getElementById("submit");
 var scores = document.getElementById("scores");
 var ranking = document.getElementById("high-score");
+var initials = document.getElementById("initials");
+var backBtn = document.getElementById("back-btn");
+var highscore;
+let init = initials.value;
+var highscoreDisplay = document.getElementById("highscore-display");
+var highscoreBtn = document.getElementById("highscores");
+
 
 function endGame() {
     clearInterval(interval);
     result.style.display = "block";
     quiz.style.display = "none";
-    submitBtn.addEventListener("click", saveScore)   
     scores.textContent = score;
-}
-
-// function save score
-var initials = document.getElementById("initials");
-
-function saveScore(event) {
-    event.preventDefault();
-    let init = initials.value;
-    localStorage.setItem("init", init); 
-    console.log(init);
-    if (init.length <= 1) {
-        alert("Enter your initials!");
-        return;
-    }
-    var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-    var newScore = {
-        name: init,
-        score: scores,
-    } 
-    highScores.push(newScore);
-    highScores.sort( (a,b) => b.newScore - a.newScore);
-    localStorage.setItem('highScores', JSON.stringify(highScores));
-    window.location.href = './ranking.html';   
-}; console.log(highScores); 
-
-var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-
-function showHighScore() {
-    highScores.sort(function(a,b) {
-        return b.score - a.score;
-    })
-    highScores.forEach(function(highScores) {
-        let liEL = document.createElement('li');
-        liEL.textContent = highScores.init + " - " + highScores.scores;
-        let showScores = document.getElementById("highscores-list");
-        console.log(showScores);
-        showScores.appendChild(liEL);
-    })
 };
+
+submitBtn.addEventListener("click", function () {
+    highscoreDisplay.style.display = "block";
+    result.style.display = "none";
+    if (localStorage.getItem("Highscore") === null) {
+        localStorage.setItem("Highscore", JSON.stringify({
+            highscore: 0,
+            highscoreArr: []
+        }));
+    }
+    highscore = JSON.parse(localStorage.getItem("Highscore")).highscore;
+    var allscores = JSON.parse(localStorage.getItem("Highscore")).highscoreArr;
+    if (score > highscore) {
+        highscore = score;
+    }
+    allscores.push(init + score);
+    localStorage.setItem('Highscore', JSON.stringify({
+        highscore,
+        highscoreArr: allscores
+    }));
+    
+});
+
+backBtn.addEventListener("click", function() {
+    startBtn.style.display = "block";
+    quiz.style.display = "none";
+    result.style.display = "none";
+    highscoreDisplay.style.display = "none";
+})
+
+highscoreBtn.addEventListener("click", function () {
+	document.getElementById("highscoreDisp").innerHTML = "";
+	var hsList = JSON.parse(localStorage.getItem("Highscore")).highscoreArr || [];
+	if (result.style.display === "none") {
+		result.style.display = "flex";
+		hsList.map(a => {
+			var ele = document.createElement("h3");
+			var node = document.createTextNode(a);
+			ele.appendChild(node);
+			document.getElementById("highscoreDisp").appendChild(ele);
+		});
+	} else {
+		result.style.display = "none";
+	}
+});

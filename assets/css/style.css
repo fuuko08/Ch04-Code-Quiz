@@ -213,14 +213,15 @@ body {
     text-align: center;
 }
 
-#submit, #backbtn {
+#submit, #back-btn, #highscores {
     width: 150px;
     position: absolute;
-    right: 300px;
+    right: 400px;
     color: var(--main);
     border: 2px solid var(--dark);
     border-radius: 10%;
     background-color: var(--pink);
+    cursor: pointer;
 }
 #submit:hover {
     background-color: var(--main);
@@ -229,4 +230,14 @@ body {
 #backbtn:hover {
     background-color: var(--main);
     color: var(--blue);
+}
+
+#highscores {
+    position:absolute;
+    top: 450px;
+    right: 200px;
+}
+
+.highscore-display {
+    display: none;
 }
