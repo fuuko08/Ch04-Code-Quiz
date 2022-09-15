@@ -100,9 +100,9 @@ function showQuestion(question) {
                 setQuestion();
             } else {
                 endGame();
-            }
+            } return score;
             // timer function? //
-        });
+        }); 
         answers.appendChild(answerBtn);
     }
 }
@@ -153,7 +153,6 @@ function deductTime(seconds) {
 // function end quiz
 var submitBtn = document.getElementById("submit");
 var scores = document.getElementById("scores");
-var backBtn = document.getElementById("backbtn");
 var ranking = document.getElementById("high-score");
 
 function endGame() {
@@ -161,6 +160,7 @@ function endGame() {
     result.style.display = "block";
     quiz.style.display = "none";
     submitBtn.addEventListener("click", saveScore)   
+    scores.textContent = score;
 }
 
 // function save score
@@ -169,6 +169,8 @@ var initials = document.getElementById("initials");
 function saveScore(event) {
     event.preventDefault();
     let init = initials.value;
+    localStorage.setItem("init", init); 
+    console.log(init);
     if (init.length <= 1) {
         alert("Enter your initials!");
         return;
@@ -176,10 +178,25 @@ function saveScore(event) {
     var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
     var newScore = {
         name: init,
-        score: time,
-    }
+        score: scores,
+    } 
     highScores.push(newScore);
     highScores.sort( (a,b) => b.newScore - a.newScore);
     localStorage.setItem('highScores', JSON.stringify(highScores));
-    window.location.href = './ranking.html';
-}
+    window.location.href = './ranking.html';   
+}; console.log(highScores); 
+
+var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+function showHighScore() {
+    highScores.sort(function(a,b) {
+        return b.score - a.score;
+    })
+    highScores.forEach(function(highScores) {
+        let liEL = document.createElement('li');
+        liEL.textContent = highScores.init + " - " + highScores.scores;
+        let showScores = document.getElementById("highscores-list");
+        console.log(showScores);
+        showScores.appendChild(liEL);
+    })
+};
